@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 defmodule Munition.Host.Capabilities do
   @moduledoc """
   Capability definitions and validation.

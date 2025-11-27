@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 //! Test WASM modules for the Munition framework.
 //!
 //! This crate provides simple WASM functions for testing:

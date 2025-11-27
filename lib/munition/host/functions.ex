@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 defmodule Munition.Host.Functions do
   @moduledoc """
   Host function registry for WASM imports.

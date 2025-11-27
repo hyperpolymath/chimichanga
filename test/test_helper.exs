@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 ExUnit.start()
 
 # Test support modules

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 defmodule Munition.Instance.State do
   @moduledoc """
   State structure for tracking WASM instance lifecycle.

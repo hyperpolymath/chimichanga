@@ -1,0 +1,167 @@
+= Munition Governance
+:toc:
+:toc-placement!:
+
+This document describes the governance model for the Munition project.
+
+toc::[]
+
+== Project Structure
+
+=== Roles
+
+==== Maintainers
+
+Maintainers have full commit access and are responsible for:
+
+* Reviewing and merging contributions
+* Release management
+* Security response
+* Architecture decisions
+* Community health
+
+Current maintainers are listed in link:MAINTAINERS.md[MAINTAINERS.md].
+
+==== Contributors
+
+Contributors have made accepted contributions to the project. They are
+recognized in release notes and may be invited to become maintainers.
+
+==== Community Members
+
+Anyone who engages with the project through issues, discussions, or usage.
+
+== Decision Making
+
+=== Consensus-Based
+
+Most decisions are made through consensus:
+
+1. Proposal is made (issue or pull request)
+2. Discussion period (minimum 72 hours for significant changes)
+3. Maintainers seek consensus
+4. If consensus reached, proceed
+5. If not, escalate to voting
+
+=== Voting
+
+For contested decisions:
+
+* Each maintainer has one vote
+* Simple majority wins
+* Quorum: 50% of active maintainers
+* Voting period: 7 days
+
+=== Scope of Decisions
+
+[cols="1,1,1"]
+|===
+| Decision Type | Approval Required | Process
+
+| Bug fixes
+| 1 maintainer
+| Standard PR review
+
+| Features
+| 2 maintainers
+| PR review + discussion
+
+| Breaking changes
+| All active maintainers
+| RFC + voting if needed
+
+| Governance changes
+| All active maintainers
+| RFC + 14-day comment period
+
+| New maintainer
+| All active maintainers
+| Nomination + 7-day period
+|===
+
+== Contribution Path
+
+=== Becoming a Maintainer
+
+1. **Demonstrate commitment**: Multiple quality contributions over 6+ months
+2. **Nomination**: Existing maintainer nominates candidate
+3. **Discussion**: 7-day period for maintainer feedback
+4. **Decision**: Unanimous consent of active maintainers
+5. **Onboarding**: Access granted, added to MAINTAINERS.md
+
+=== Maintainer Responsibilities
+
+* Review PRs within 7 days (or communicate delay)
+* Participate in security response
+* Vote on contested decisions
+* Mentor new contributors
+
+=== Stepping Down
+
+Maintainers may step down at any time by:
+
+1. Notifying other maintainers
+2. Transferring any critical responsibilities
+3. Being removed from MAINTAINERS.md
+
+Inactive maintainers (no contribution in 12 months) may be moved to
+"emeritus" status after discussion.
+
+== Financial Transparency
+
+=== Funding Sources
+
+All funding sources are listed in link:FUNDING.yml[FUNDING.yml].
+
+=== Spending Decisions
+
+* < $100: Any maintainer can approve
+* $100-$1000: Two maintainer approval
+* > $1000: Majority vote
+
+=== Reporting
+
+Financial reports are published quarterly (when applicable).
+
+== Conflict Resolution
+
+=== Code of Conduct Violations
+
+See link:CODE_OF_CONDUCT.md[CODE_OF_CONDUCT.md] for enforcement procedures.
+
+=== Technical Disputes
+
+1. Discuss in issue/PR
+2. Request maintainer mediation
+3. If unresolved, formal vote
+
+=== Governance Disputes
+
+1. Raise in dedicated issue
+2. 14-day discussion period
+3. Formal vote if unresolved
+
+== Amendments
+
+This governance document may be amended by:
+
+1. Proposal via pull request
+2. 14-day comment period
+3. Unanimous maintainer approval
+
+Minor clarifications may be made with 2 maintainer approval.
+
+== Project Succession
+
+In the event that all maintainers become inactive:
+
+1. Last active maintainer should designate successor(s)
+2. If no designation, the project enters archive mode
+3. Fork rights are preserved under MIT license
+4. Community may self-organize to continue development
+
+== Contact
+
+* General: maintainers@hyperpolymath.dev
+* Security: security@hyperpolymath.dev
+* Conduct: conduct@hyperpolymath.dev

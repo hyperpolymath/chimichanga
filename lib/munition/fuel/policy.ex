@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 defmodule Munition.Fuel.Policy do
   @moduledoc """
   Fuel allocation policies for bounded execution.

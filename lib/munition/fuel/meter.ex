@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 defmodule Munition.Fuel.Meter do
   @moduledoc """
   Fuel consumption tracking and analysis.

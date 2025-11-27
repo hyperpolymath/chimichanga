@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 defmodule Munition.Forensics.Capture do
   @moduledoc """
   Captures forensic state from crashed WASM instances.

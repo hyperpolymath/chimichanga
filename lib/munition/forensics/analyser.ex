@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 defmodule Munition.Forensics.Analyser do
   @moduledoc """
   Analysis utilities for forensic memory dumps.

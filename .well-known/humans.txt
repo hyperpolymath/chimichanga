@@ -1,0 +1,27 @@
+/* TEAM */
+Lead Developer: Hyperpolymath
+Contact: maintainers@hyperpolymath.dev
+From: Earth
+
+/* THANKS */
+Wasmtime team - for the excellent WASM runtime
+Elixir team - for the best programming language
+Sylvan Clebsch - for Pony's capability model inspiration
+Mark S. Miller - for object-capability security foundations
+The WASM community - for a secure execution substrate
+
+/* SITE */
+Last update: 2025-01-01
+Language: English
+Standards: RSR Gold, SPDX, RFC 9116
+Doctype: Elixir Library
+Components: Elixir, Rust, WASM
+Software: Mix, Cargo, Nix, Just
+
+/* INSPIRATION */
+Capability-based security
+Pony's reference capabilities
+Object-capability model (OCaps)
+The principle of least privilege
+Offline-first software
+CRDTs and local-first design

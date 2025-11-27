@@ -1,0 +1,290 @@
+= Contributing to Munition
+:toc:
+:toc-placement!:
+
+Thank you for your interest in contributing to Munition! This document explains
+how to contribute effectively using our Tri-Perimeter Contribution Framework (TPCF).
+
+toc::[]
+
+== Quick Start
+
+[source,bash]
+----
+# Clone the repository
+git clone https://github.com/hyperpolymath/chimichanga
+cd chimichanga
+
+# Set up development environment
+just setup
+
+# Run tests
+just test
+
+# Run compliance checks
+just validate
+----
+
+== Tri-Perimeter Contribution Framework (TPCF)
+
+Munition uses a three-tier contribution model to balance openness with security
+and quality.
+
+=== Perimeter 1: Core (Maintainers Only)
+
+**Access**: Direct commit to `main` branch
+
+**Who**: Project maintainers listed in MAINTAINERS.md
+
+**Responsibilities**:
+
+* Final review and merge of all changes
+* Security-critical code paths
+* Release management
+* Architecture decisions
+
+**Scope**:
+
+* `lib/munition/runtime/` - Runtime implementation
+* `lib/munition/forensics/` - Forensic capture
+* Security-sensitive host functions
+* CI/CD configuration
+
+=== Perimeter 2: Expert (Trusted Contributors)
+
+**Access**: Feature branches, reviewed PRs
+
+**Who**: Contributors with established track record
+
+**How to become an Expert Contributor**:
+
+1. Successfully contribute 3+ changes via Perimeter 3
+2. Demonstrate understanding of the codebase
+3. Request promotion via issue
+4. Maintainer approval
+
+**Responsibilities**:
+
+* Complex feature development
+* Performance optimization
+* Test infrastructure
+* Documentation improvements
+
+**Scope**:
+
+* New capability implementations
+* Benchmark improvements
+* Integration with external tools
+* Advanced documentation
+
+=== Perimeter 3: Community (Open Sandbox)
+
+**Access**: Fork and pull request
+
+**Who**: Anyone following the Code of Conduct
+
+**Suitable contributions**:
+
+* Bug reports with reproduction steps
+* Documentation fixes and improvements
+* Test case additions
+* Example code
+* Typo fixes
+* Translation (when applicable)
+
+**Process**:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b my-feature`
+3. Make changes with SPDX headers
+4. Run `just check` to validate
+5. Submit pull request
+
+== Contribution Guidelines
+
+=== Code Style
+
+**Elixir**:
+
+* Run `mix format` before committing
+* Follow https://hexdocs.pm/elixir/master/naming-conventions.html[Elixir naming conventions]
+* Document public functions with `@doc`
+* Add typespecs with `@spec`
+
+**Rust** (test WASM):
+
+* Run `cargo fmt` before committing
+* Use `#![no_std]` for WASM modules
+* Document with `///` comments
+
+=== SPDX Headers
+
+Every source file MUST include an SPDX header:
+
+[source,elixir]
+----
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Your Name
+----
+
+[source,rust]
+----
+// SPDX-License-Identifier: MIT
+// SPDX-FileCopyrightText: 2025 Your Name
+----
+
+=== Commit Messages
+
+Follow conventional commits:
+
+[source]
+----
+type(scope): subject
+
+body (optional)
+
+footer (optional)
+----
+
+Types:
+
+* `feat`: New feature
+* `fix`: Bug fix
+* `docs`: Documentation only
+* `style`: Formatting, no code change
+* `refactor`: Code restructuring
+* `test`: Adding tests
+* `chore`: Maintenance
+
+Examples:
+
+[source]
+----
+feat(forensics): add memory region extraction
+
+fix(runtime): handle fuel exhaustion edge case
+
+docs: update CONTRIBUTING with TPCF details
+----
+
+=== Testing
+
+* All new features require tests
+* Bug fixes should include regression tests
+* Run `just test` before submitting
+
+Test categories:
+
+* Unit tests: `test/munition_test.exs`
+* Integration tests: `test/integration/`
+* Benchmarks: `bench/`
+
+=== Documentation
+
+* Update relevant docs with code changes
+* Use clear, concise language
+* Include code examples where helpful
+* Validate links: `just check-links`
+
+== Development Workflow
+
+=== Setting Up
+
+[source,bash]
+----
+# Using Nix (recommended)
+nix develop
+
+# Or manually
+mix deps.get
+cd test_wasm && cargo build --target wasm32-unknown-unknown --release
+----
+
+=== Running Tests
+
+[source,bash]
+----
+# All tests
+just test
+
+# Unit tests only (no WASM required)
+just test-unit
+
+# Integration tests only
+just test-integration
+
+# With coverage
+mix test --cover
+----
+
+=== Validation
+
+[source,bash]
+----
+# Full RSR compliance check
+just validate
+
+# Individual checks
+just check-format
+just check-lint
+just check-links
+just audit-licence
+----
+
+== Pull Request Process
+
+1. **Before submitting**:
+   - Run `just check` and fix any issues
+   - Update documentation if needed
+   - Add tests for new functionality
+
+2. **PR description**:
+   - Explain what and why
+   - Reference related issues
+   - Note any breaking changes
+
+3. **Review process**:
+   - Maintainer review required
+   - CI must pass
+   - Approval from 1+ maintainer
+
+4. **After merge**:
+   - Delete your branch
+   - Update related issues
+
+== Getting Help
+
+* **Questions**: Open a discussion issue
+* **Bugs**: Open an issue with reproduction steps
+* **Security**: See SECURITY.md
+
+== Recognition
+
+Contributors are recognized in:
+
+* MAINTAINERS.md (for ongoing contributors)
+* Release notes (for specific contributions)
+* README.md acknowledgments section
+
+== Developer Certificate of Origin
+
+By contributing to this project, you certify that:
+
+1. The contribution was created in whole or in part by you and you have the
+   right to submit it under the open source license indicated in the file; or
+
+2. The contribution is based upon previous work that, to the best of your
+   knowledge, is covered under an appropriate open source license and you have
+   the right under that license to submit that work with modifications; or
+
+3. The contribution was provided directly to you by some other person who
+   certified (1), (2) or (3) and you have not modified it.
+
+You can signify your agreement by adding a `Signed-off-by` line to your commit:
+
+[source]
+----
+Signed-off-by: Your Name <your.email@example.com>
+----
+
+Use `git commit -s` to add this automatically.

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 defmodule Munition.Runtime.Wasmex do
   @moduledoc """
   Wasmtime implementation of the Munition runtime behaviour.

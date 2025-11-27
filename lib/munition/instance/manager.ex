@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 defmodule Munition.Instance.Manager do
   @moduledoc """
   Manages munition lifecycle: compile, instantiate, execute, capture, cleanup.

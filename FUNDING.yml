@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+#
+# Funding information for the Munition project
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+
+# Platform-specific funding links
+github: hyperpolymath
+# open_collective: munition
+# liberapay: hyperpolymath
+# ko_fi: hyperpolymath
+
+# Custom funding links
+custom:
+  - https://hyperpolymath.dev/sponsor
+
+# Solidarity Economics Framework
+#
+# This project operates under solidarity economics principles:
+#
+# 1. Cooperative Development: Contributions are valued beyond monetary terms
+# 2. Commons-Based: Core infrastructure remains freely available
+# 3. Sustainable: Funding supports long-term maintenance, not extraction
+# 4. Transparent: All funding usage is publicly documented
+#
+# Funding priorities:
+# 1. Security audits and maintenance
+# 2. Documentation and accessibility
+# 3. Community building and outreach
+# 4. Research and development
+#
+# For corporate sponsorship or support contracts, contact:
+# sponsors@hyperpolymath.dev

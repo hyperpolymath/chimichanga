@@ -1,0 +1,67 @@
+{
+  "$schema": "https://in-toto.io/Statement/v0.1",
+  "_type": "https://in-toto.io/Statement/v0.1",
+  "subject": [
+    {
+      "name": "munition",
+      "version": "0.1.0"
+    }
+  ],
+  "predicateType": "https://slsa.dev/provenance/v0.2",
+  "predicate": {
+    "builder": {
+      "id": "https://github.com/hyperpolymath/chimichanga"
+    },
+    "buildType": "https://elixir-lang.org/mix",
+    "invocation": {
+      "configSource": {
+        "uri": "git+https://github.com/hyperpolymath/chimichanga",
+        "entryPoint": "mix.exs"
+      }
+    },
+    "metadata": {
+      "buildStartedOn": "2025-01-01T00:00:00Z",
+      "completeness": {
+        "parameters": true,
+        "environment": true,
+        "materials": true
+      },
+      "reproducible": true
+    },
+    "materials": [
+      {
+        "uri": "pkg:hex/wasmex@0.9.0",
+        "digest": {
+          "sha256": "verified-via-hex-pm"
+        }
+      },
+      {
+        "uri": "pkg:hex/jason@1.4.0",
+        "digest": {
+          "sha256": "verified-via-hex-pm"
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "origin": "Hyperpolymath",
+    "license": "MIT",
+    "spdx": "MIT",
+    "contributors": [
+      {
+        "name": "Hyperpolymath",
+        "role": "author"
+      }
+    ],
+    "auditTrail": {
+      "gitRepository": "https://github.com/hyperpolymath/chimichanga",
+      "signedCommits": false,
+      "spdxHeaders": true
+    },
+    "securityReview": {
+      "status": "pending",
+      "lastReview": null,
+      "nextScheduled": "2025-Q2"
+    }
+  }
+}

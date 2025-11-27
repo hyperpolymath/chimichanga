@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
 defmodule MunitionTest do
   use ExUnit.Case, async: true
   doctest Munition

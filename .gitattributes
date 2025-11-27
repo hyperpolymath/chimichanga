@@ -1,0 +1,47 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+
+# Auto-detect text files and normalize line endings
+* text=auto
+
+# Elixir
+*.ex text eol=lf
+*.exs text eol=lf
+*.eex text eol=lf
+*.heex text eol=lf
+*.leex text eol=lf
+
+# Rust
+*.rs text eol=lf
+*.toml text eol=lf
+
+# Documentation
+*.md text eol=lf
+*.adoc text eol=lf
+*.txt text eol=lf
+
+# Configuration
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.nix text eol=lf
+*.ncl text eol=lf
+Justfile text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+
+# Binary files
+*.wasm binary
+*.beam binary
+*.ez binary
+
+# Lock files (don't diff)
+flake.lock -diff
+mix.lock -diff
+
+# Linguist overrides (for GitHub/GitLab language detection)
+*.ex linguist-language=Elixir
+*.exs linguist-language=Elixir
+docs/** linguist-documentation
+bench/** linguist-vendored

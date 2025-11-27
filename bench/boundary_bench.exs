@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Hyperpolymath
+#
 # Boundary Crossing Benchmark
 #
 # Measures the overhead of crossing the Elixir <-> WASM boundary.
