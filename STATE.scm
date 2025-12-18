@@ -15,7 +15,7 @@
   '((version . "0.1.0")
     (schema-version . "1.0")
     (created . "2025-12-15")
-    (updated . "2025-12-15")
+    (updated . "2025-12-18")
     (project . "chimichanga")
     (repo . "github.com/hyperpolymath/chimichanga")))
 
@@ -157,7 +157,15 @@
        ("Added META.scm, ECOSYSTEM.scm, STATE.scm"
         "Established RSR compliance"
         "Created initial project checkpoint"))
-      (notes . "First STATE.scm checkpoint created via automated script")))))
+      (notes . "First STATE.scm checkpoint created via automated script"))
+     ((date . "2025-12-18")
+      (session . "security-audit-and-fix")
+      (accomplishments
+       ("SHA-pinned all GitHub Actions for supply-chain security"
+        "Updated provenance.json with correct dependency versions"
+        "Verified SCM files structure and syntax"
+        "Security workflow audit completed"))
+      (notes . "Security hardening session - all actions now SHA-pinned")))))
 
 ;;;============================================================================
 ;;; HELPER FUNCTIONS (for Guile evaluation)
@@ -189,6 +197,6 @@
     (next-milestone . "v0.2 - Core Functionality")
     (critical-blockers . 0)
     (high-priority-issues . 0)
-    (updated . "2025-12-15")))
+    (updated . "2025-12-18")))
 
 ;;; End of STATE.scm
