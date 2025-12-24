@@ -1,0 +1,18 @@
+= Chimichanga
+:toc: auto
+
+A capability attenuation framework for sandboxed WASM execution in Elixir.
+
+== Overview
+
+Chimichanga provides secure WASM execution with fine-grained capability control in Elixir applications.
+
+== Features
+
+* Capability-based security
+* WASM sandboxing
+* Elixir integration
+
+== License
+
+AGPL-3.0-or-later
