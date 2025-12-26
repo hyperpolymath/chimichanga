@@ -1,0 +1,264 @@
+= Munition Roadmap
+:toc: macro
+:toclevels: 2
+:icons: font
+
+Development roadmap for the Munition capability attenuation framework.
+
+toc::[]
+
+== Current State (v0.1.0)
+
+=== Implemented ✓
+
+[cols="1,3"]
+|===
+|Component |Status
+
+|**Core API**
+|`fire/4`, `validate/2` implemented and tested
+
+|**Fuel Metering**
+|Full fuel policy and consumption tracking
+
+|**Memory Isolation**
+|Fresh instance per execution, no state leakage
+
+|**Forensic Capture**
+|Atomic capture on trap/exhaustion, MNTN serialization
+
+|**Forensic Analysis**
+|Memory introspection, pattern search, string extraction
+
+|**Runtime Abstraction**
+|Behaviour-based pluggable runtime interface
+
+|**Wasmtime Backend**
+|Production-ready via Wasmex
+
+|**Host Functions**
+|Capability-gated registry
+
+|**Test Infrastructure**
+|Unit + integration tests, Rust WASM test module
+
+|**RSR Gold Compliance**
+|Full Justfile validation suite
+|===
+
+== Phase 1: Production Hardening
+
+=== 1.1 Instance Pooling
+
+Pre-compile and pre-instantiate modules for reduced latency in hot paths.
+
+[source,elixir]
+----
+# Target API
+Munition.Pool.start_link(:my_plugin, wasm_bytes, size: 10)
+Munition.fire_pooled(:my_plugin, "process", [data])
+----
+
+**Challenges:**
+
+* Memory reset between executions
+* Fuel reset mechanism
+* State clearing guarantees
+* Potential approach: Wizer for snapshot-and-restore, or module-only caching
+
+=== 1.2 Timeout Enforcement
+
+Hard timeout enforcement via Task supervision (in addition to fuel bounds).
+
+=== 1.3 Memory Limits
+
+Configurable maximum linear memory allocation per instance.
+
+=== 1.4 Enhanced Error Semantics
+
+Richer error types with structured context for debugging.
+
+== Phase 2: Alternative Runtimes
+
+The `Munition.Runtime` behaviour enables pluggable WASM engines.
+
+=== 2.1 Wasmer Backend
+
+Alternative to Wasmtime with different performance characteristics.
+
+=== 2.2 WAMR Backend
+
+WebAssembly Micro Runtime for constrained/embedded environments.
+
+* Interpreter mode for minimal footprint
+* AOT compilation for performance
+
+=== 2.3 Native Lunatic Integration
+
+When running under Lunatic runtime, leverage its native WASM support.
+
+== Phase 3: Language Attenuators
+
+Support for compiling additional source languages to Munition-compatible WASM.
+
+=== 3.1 Rust → WASM (Additive)
+
+Direct compilation path. Rust's ownership guarantees preserved; WASM adds:
+
+* Linear memory isolation
+* Fuel bounding (not in native Rust)
+* Instance isolation
+
+=== 3.2 PHP → WASM (Restrictive)
+
+Via php-wasm. Requires restrictive attenuation:
+
+* Every filesystem call → interceptable host function
+* Every network call → interceptable host function
+* Host denies by default, grants explicitly
+
+=== 3.3 JavaScript → WASM (Restrictive)
+
+Via AssemblyScript or similar. Same restrictive model as PHP.
+
+=== 3.4 Pony → WASM (Preserving)
+
+Hypothetical capability-preserving attenuator:
+
+[source]
+----
+Pony iso → Rust Box<T> / owned value
+Pony val → Rust Arc<T> / shared immutable
+Pony ref → (complex - requires actor model)
+Pony box → Rust &T
+Pony tag → *const () (identity only)
+----
+
+**Challenge:** Pony's `ref` (multiple mutable references within actor) doesn't map to Rust without unsafe or actor runtime.
+
+== Phase 4: Research Directions
+
+=== 4.1 Capability Inference
+
+Automatically infer minimum required capabilities from source programs:
+
+[source]
+----
+infer: Program → Set<Capability>
+
+Such that:
+  ∀p: fire(compile(p), granted=infer(p)) succeeds iff p is valid
+----
+
+=== 4.2 Graduated Trust
+
+Dynamic capability expansion based on execution history:
+
+[source]
+----
+trust_level(plugin, history) → Set<Capability>
+
+Where:
+  - New plugins get minimal capabilities
+  - Successfully behaving plugins gain capabilities
+  - Misbehaving plugins lose capabilities
+----
+
+=== 4.3 Capability Composition
+
+Safe composition of multiple sandboxed modules:
+
+[source]
+----
+compose: (Module, Capabilities) × (Module, Capabilities) → (Module, Capabilities)
+
+Such that:
+  C_composed ⊆ C_1 ∪ C_2
+----
+
+=== 4.4 Forensic Analysis Automation
+
+Automated analysis of crash dumps to identify:
+
+* Root cause classification
+* Exploitation attempt detection
+* Capability escalation attempts
+* Anomaly patterns
+
+=== 4.5 Formal Verification Extension
+
+Extend TLA+ specification to cover:
+
+* Multi-module interactions
+* Pooling invariants
+* Capability composition safety
+
+== Phase 5: Ecosystem Integration
+
+=== 5.1 Phoenix Integration
+
+Plug-and-play integration for Phoenix applications:
+
+* Plug for WASM-based request handlers
+* LiveView hooks for sandboxed client extensions
+* Channel handlers with capability restrictions
+
+=== 5.2 Nerves Integration
+
+Edge/IoT deployment support:
+
+* Minimal runtime selection (WAMR)
+* Resource-constrained forensics
+* OTA-safe plugin updates
+
+=== 5.3 Plugin Marketplace
+
+Infrastructure for distributing and verifying WASM plugins:
+
+* Cryptographic signing
+* Capability manifest format
+* Version compatibility checking
+
+== Version Targets
+
+[cols="1,2,3"]
+|===
+|Version |Target |Key Features
+
+|**0.1.0**
+|Current
+|Core API, fuel metering, memory isolation, forensic capture
+
+|**0.2.0**
+|Phase 1
+|Instance pooling, timeout enforcement, memory limits
+
+|**0.3.0**
+|Phase 2
+|Wasmer backend, WAMR backend
+
+|**0.4.0**
+|Phase 3
+|Rust attenuator documentation, PHP-WASM experimental
+
+|**0.5.0**
+|Phase 4
+|Capability inference prototype, graduated trust
+
+|**1.0.0**
+|Stable
+|Production-ready with stable API guarantees
+|===
+
+== Contributing
+
+See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc] for the Tri-Perimeter Contribution Framework.
+
+Roadmap items are tracked in GitHub Issues. Contributions welcome at all perimeter levels.
+
+== References
+
+* Miller, M. S. (2006). _Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control_. PhD thesis.
+* Clebsch, S., et al. (2015). _Deny Capabilities for Safe, Fast Actors_. AGERE.
+* Haas, A., et al. (2017). _Bringing the Web up to Speed with WebAssembly_. PLDI.
+* Watson, R. N. M., et al. (2015). _CHERI: A Hybrid Capability-System Architecture for Scalable Software Compartmentalization_. IEEE S&P.
