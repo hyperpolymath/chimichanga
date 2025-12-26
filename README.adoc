@@ -1,18 +1,353 @@
-= Chimichanga
-:toc: auto
+= Munition (Chimichanga)
+:toc: macro
+:toclevels: 3
+:icons: font
+:source-highlighter: rouge
+:sectanchors:
+:sectlinks:
 
 A capability attenuation framework for sandboxed WASM execution in Elixir.
 
+image:https://img.shields.io/badge/RSR-Gold-gold[RSR Gold]
+image:https://img.shields.io/badge/License-MIT%20OR%20AGPL--3.0--or--later-blue[License]
+image:https://img.shields.io/badge/Elixir-1.14+-purple[Elixir]
+
+toc::[]
+
 == Overview
 
-Chimichanga provides secure WASM execution with fine-grained capability control in Elixir applications.
+Munition provides secure execution of untrusted WebAssembly code with three core guarantees:
 
-== Features
+[cols="1,3"]
+|===
+|Guarantee |Description
 
-* Capability-based security
-* WASM sandboxing
-* Elixir integration
+|**Bounded Execution**
+|Fuel-metered computation that guarantees termination. Every WASM instruction consumes fuel; exhaustion halts execution deterministically.
+
+|**Memory Isolation**
+|Each execution gets fresh, isolated linear memory. No state leaks between executions.
+
+|**Forensic Capture**
+|Failure state is automatically captured for post-mortem analysis. Memory snapshots, fuel state, and execution context preserved atomically.
+|===
+
+== The Capability Attenuation Model
+
+Munition implements a formal model for capability attenuation across language boundaries:
+
+[source]
+----
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│  Source Code    │     │   Attenuator    │     │    Runtime      │
+│  (rich caps)    │ ──▶ │   (compiler)    │ ──▶ │  (restricted)   │
+│                 │     │                 │     │                 │
+│  PHP: can do    │     │  Removes/maps   │     │  WASM: can only │
+│  anything       │     │  capabilities   │     │  do what host   │
+│                 │     │                 │     │  permits        │
+│  Pony: typed    │     │  Preserves      │     │                 │
+│  capabilities   │     │  proofs         │     │  Elixir: super- │
+│                 │     │                 │     │  vises, captures│
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+----
+
+=== Attenuation Strategies
+
+[cols="1,2,2"]
+|===
+|Strategy |Source Languages |Description
+
+|**Restrictive**
+|PHP, JavaScript
+|Source has implicit universal capabilities. Attenuator removes/intercepts all capability exercise.
+
+|**Preserving**
+|Pony
+|Source has typed capabilities. Attenuator maps source capabilities to target capabilities.
+
+|**Additive**
+|Rust
+|Source already has ownership guarantees. Runtime adds additional isolation (fuel, memory bounds).
+|===
+
+== Architecture
+
+=== Component Overview
+
+[source]
+----
+┌────────────────────────────────────────────────────────────────────┐
+│                           Public API                               │
+│                         Munition.fire/4                            │
+└─────────────────────────────────┬──────────────────────────────────┘
+                                  │
+┌─────────────────────────────────▼──────────────────────────────────┐
+│                       Instance Manager                             │
+│                   Munition.Instance.Manager                        │
+│                                                                    │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────────┐ │
+│  │   Compile    │→ │ Instantiate  │→ │       Execute            │ │
+│  └──────────────┘  └──────────────┘  └──────────────────────────┘ │
+│          │                │                      │                 │
+│          ▼                ▼                      ▼                 │
+│  ┌──────────────────────────────────────────────────────────────┐ │
+│  │                    Forensic Capture                          │ │
+│  │                 (on any failure path)                        │ │
+│  └──────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────┬──────────────────────────────────┘
+                                  │
+┌─────────────────────────────────▼──────────────────────────────────┐
+│                      Runtime Behaviour                             │
+│                     Munition.Runtime                               │
+│                                                                    │
+│  ┌────────────────────┐  ┌────────────────────┐                   │
+│  │  Wasmex (default)  │  │  (future runtimes) │                   │
+│  │   via Wasmtime     │  │                    │                   │
+│  └────────────────────┘  └────────────────────┘                   │
+└────────────────────────────────────────────────────────────────────┘
+----
+
+=== Module Structure
+
+[cols="2,3"]
+|===
+|Module |Responsibility
+
+|`lib/munition.ex`
+|Public API: `fire/4`, `fire_pooled/4`, `validate/2`
+
+|`lib/munition/instance/manager.ex`
+|Lifecycle orchestration: compile → instantiate → execute → capture → cleanup
+
+|`lib/munition/instance/state.ex`
+|Instance lifecycle state tracking
+
+|`lib/munition/runtime/behaviour.ex`
+|Pluggable WASM engine interface
+
+|`lib/munition/runtime/wasmex.ex`
+|Wasmtime implementation via Wasmex
+
+|`lib/munition/forensics/dump.ex`
+|Structured crash dump format with MNTN serialization
+
+|`lib/munition/forensics/capture.ex`
+|Atomic state capture on failure
+
+|`lib/munition/forensics/analyser.ex`
+|Memory introspection and pattern searching
+
+|`lib/munition/fuel/policy.ex`
+|Default fuel allocations and complexity calculation
+
+|`lib/munition/fuel/meter.ex`
+|Consumption tracking and statistics
+
+|`lib/munition/host/functions.ex`
+|Host function registry with capability gating
+
+|`lib/munition/host/capabilities.ex`
+|Capability definitions and validation
+|===
+
+== Quick Start
+
+=== Installation
+
+[source,elixir]
+----
+# Add to mix.exs
+{:munition, "~> 0.1.0"}
+----
+
+=== Basic Usage
+
+[source,elixir]
+----
+wasm = File.read!("plugin.wasm")
+
+case Munition.fire(wasm, "process", [input], fuel: 100_000) do
+  {:ok, result, metadata} ->
+    IO.puts("Result: #{inspect(result)}")
+    IO.puts("Fuel remaining: #{metadata.fuel_remaining}")
+
+  {:crash, :fuel_exhausted, forensics} ->
+    IO.puts("Execution exceeded fuel limit")
+    IO.puts(Munition.Forensics.Dump.summary(forensics))
+
+  {:crash, :trap, forensics} ->
+    IO.puts("WASM trap occurred")
+    analyser = Munition.Forensics.Analyser.new(forensics)
+    IO.puts(Munition.Forensics.Analyser.hex_dump(analyser, 0, 256))
+end
+----
+
+=== Features in Action
+
+==== Fuel Metering (Guaranteed Termination)
+
+[source,elixir]
+----
+# This will ALWAYS terminate - no infinite loops possible
+{:crash, :fuel_exhausted, _} =
+  Munition.fire(wasm, "infinite_loop", [], fuel: 1_000)
+----
+
+==== Memory Isolation
+
+[source,elixir]
+----
+# Execution A writes to memory
+Munition.fire(wasm, "write_data", [pattern])
+
+# Execution B cannot see it - fresh memory every time
+{:ok, [0], _} = Munition.fire(wasm, "read_data", [0])
+----
+
+==== Forensic Capture
+
+[source,elixir]
+----
+{:crash, reason, forensics} = Munition.fire(wasm, "buggy_function", [])
+
+# Serialize for offline analysis
+binary = Munition.Forensics.Dump.serialize(forensics)
+File.write!("crash_dump.mntn", binary)
+
+# Extract insights
+analyser = Munition.Forensics.Analyser.new(forensics)
+strings = Munition.Forensics.Analyser.extract_strings(analyser)
+----
+
+== Formal Specification
+
+Munition includes a formal TLA+ specification proving capability safety, termination, and forensic capture guarantees. See link:docs/capability_model.md[Capability Model] for:
+
+* Formal definitions (Source Language, Target Runtime, Attenuator)
+* Soundness and Completeness properties
+* Forensic Capture specification
+* Full TLA+ model
+* Soundness proof sketch
+
+=== Security Guarantees
+
+[cols="1,3"]
+|===
+|Property |Guarantee
+
+|**Termination**
+|Fuel exhaustion guarantees all executions terminate
+
+|**Memory Safety**
+|WASM linear memory is bounds-checked
+
+|**Isolation**
+|No shared state between executions
+
+|**Capability Restriction**
+|Only explicitly granted capabilities are accessible
+
+|**Forensic Preservation**
+|All failures are captured atomically for audit
+|===
+
+=== Non-Guarantees
+
+* Execution time is bounded but not constant (timing side-channels possible)
+* CPU cache timing attacks remain possible
+* Memory allocation before instantiation may exhaust host resources
+* Custom host functions must be implemented securely
+
+== Development
+
+=== Prerequisites
+
+* Elixir 1.14+
+* Rust (for building test WASM modules)
+* https://github.com/casey/just[just] (task runner)
+
+=== Setup
+
+[source,bash]
+----
+git clone https://github.com/hyperpolymath/chimichanga
+cd chimichanga
+
+# Full setup (deps + WASM)
+just setup
+
+# Or manually:
+mix deps.get
+cd test_wasm && cargo build --target wasm32-unknown-unknown --release
+mkdir -p test/fixtures
+cp test_wasm/target/wasm32-unknown-unknown/release/munition_test_wasm.wasm test/fixtures/test.wasm
+----
+
+=== Testing
+
+[source,bash]
+----
+just test              # All tests
+just test-unit         # Unit tests only (no WASM required)
+just test-integration  # Integration tests only
+just test-coverage     # With coverage report
+----
+
+=== Code Quality
+
+[source,bash]
+----
+just check             # Run all checks (fmt, lint, dialyzer)
+just lint              # Credo analysis
+just dialyzer          # Type checking
+just validate          # Full RSR Gold validation
+----
+
+== Project Statistics
+
+[cols="1,1"]
+|===
+|Metric |Value
+
+|Elixir Source
+|~1,955 lines (14 modules)
+
+|Test Suite
+|~380 lines (unit + integration)
+
+|Test WASM (Rust)
+|~286 lines
+
+|Documentation
+|40+ KB across 14 files
+
+|Version
+|0.1.0 (pre-release)
+
+|RSR Compliance
+|Gold
+|===
+
+== Documentation
+
+* link:ARCHITECTURE.md[Architecture] - System design and execution flows
+* link:docs/capability_model.md[Capability Model] - Formal specification and proofs
+* link:CONTRIBUTING.adoc[Contributing] - Tri-Perimeter Contribution Framework
+* link:GOVERNANCE.adoc[Governance] - Decision-making model
+* link:SECURITY.md[Security] - Vulnerability reporting policy
+* link:REVERSIBILITY.md[Reversibility] - Safe operations commitment
+* link:ROADMAP.adoc[Roadmap] - Future development plans
 
 == License
 
-AGPL-3.0-or-later
+Dual-licensed under MIT OR AGPL-3.0-or-later.
+
+See link:LICENSE.txt[LICENSE.txt] for details.
+
+== Maintainers
+
+See link:MAINTAINERS.md[MAINTAINERS.md] for the current maintainer list.
+
+---
+
+_Maintained by https://github.com/hyperpolymath[Hyperpolymath]_
