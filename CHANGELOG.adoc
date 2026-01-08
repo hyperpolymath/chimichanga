@@ -1,0 +1,66 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+= Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+== [Unreleased]
+
+=== Added
+- Initial implementation of Munition capability attenuation framework
+- Core execution engine with fuel metering
+- Memory isolation between executions
+- Forensic capture on failures
+- Pluggable runtime abstraction (Wasmex/Wasmtime default)
+- Capability-gated host functions
+- Formal capability model documentation
+- TLA+ specification for correctness properties
+- RSR Gold compliance
+
+=== Security
+- Fuel bounding prevents infinite loops
+- Memory isolation prevents cross-execution leakage
+- Capability restrictions prevent unauthorized operations
+
+== [0.1.0] - 2025-01-XX
+
+=== Added
+- `Munition.fire/4` - Execute WASM functions with safety guarantees
+- `Munition.validate/2` - Validate WASM modules
+- `Munition.Forensics.Dump` - Crash dump capture and serialization
+- `Munition.Forensics.Analyser` - Memory dump analysis tools
+- `Munition.Fuel.Policy` - Fuel allocation policies
+- `Munition.Host.Capabilities` - Capability definitions
+- `Munition.Runtime` behaviour - Pluggable runtime abstraction
+- Test WASM crate with comprehensive test functions
+- Integration tests for core guarantees
+- Benchmark suite for performance analysis
+- Complete RSR compliance documentation
+
+=== Documentation
+- README.md with quick start guide
+- ARCHITECTURE.md with design details
+- docs/capability_model.md with formal model
+- CONTRIBUTING.adoc with TPCF framework
+- SECURITY.md with vulnerability reporting
+- Full RSR documentation suite
+
+---
+
+== Release Process
+
+1. Update version in `mix.exs`
+2. Update this CHANGELOG
+3. Create git tag: `git tag -a v0.1.0 -m "Release 0.1.0"`
+4. Push tag: `git push origin v0.1.0`
+5. CI creates release artifacts
+
+== Versioning Policy
+
+- **MAJOR**: Breaking API changes
+- **MINOR**: New features, backward compatible
+- **PATCH**: Bug fixes, backward compatible
+
+Pre-1.0: API may change between minor versions.
