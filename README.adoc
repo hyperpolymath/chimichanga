@@ -342,7 +342,7 @@ just validate          # Full RSR Gold validation
 
 == License
 
-Dual-licensed under MIT OR AGPL-3.0-or-later.
+Dual-licensed under MIT OR PMPL-1.0-or-later.
 
 See link:LICENSE.txt[LICENSE.txt] for details.
 
