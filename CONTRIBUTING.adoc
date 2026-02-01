@@ -123,13 +123,13 @@ Every source file MUST include an SPDX header:
 
 [source,elixir]
 ----
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: PMPL-1.0-or-later
 # SPDX-FileCopyrightText: 2025 Your Name
 ----
 
 [source,rust]
 ----
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: PMPL-1.0-or-later
 // SPDX-FileCopyrightText: 2025 Your Name
 ----
 

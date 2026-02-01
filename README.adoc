@@ -1,6 +1,6 @@
 = Munition (Chimichanga)
 
-image:https://img.shields.io/badge/license-Palimpsest--MPL--1.0-purple.svg[Palimpsest-MPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"] image:https://img.shields.io/badge/philosophy-Palimpsest-purple.svg[Palimpsest,link="https://github.com/hyperpolymath/palimpsest-licence"]
+image:https://img.shields.io/badge/License-PMPL--1.0-blue.svg[License: PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
 :toc: macro
 :toclevels: 3
 :icons: font
@@ -11,7 +11,7 @@ image:https://img.shields.io/badge/license-Palimpsest--MPL--1.0-purple.svg[Palim
 A capability attenuation framework for sandboxed WASM execution in Elixir.
 
 image:https://img.shields.io/badge/RSR-Gold-gold[RSR Gold]
-image:https://img.shields.io/badge/License-MIT%20OR%20AGPL--3.0--or--later-blue[License]
+image:https://img.shields.io/badge/License-PMPL--1.0-blue.svg[License: PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
 image:https://img.shields.io/badge/Elixir-1.14+-purple[Elixir]
 
 toc::[]
