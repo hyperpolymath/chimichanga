@@ -147,3 +147,8 @@ See [docs/capability_model.md](docs/capability_model.md) for the formal capabili
 ## License
 
 MIT
+
+
+## Architecture
+
+See [TOPOLOGY.md](TOPOLOGY.md) for a visual architecture map and completion dashboard.
