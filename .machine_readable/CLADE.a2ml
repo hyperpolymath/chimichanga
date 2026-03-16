@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# Clade declaration — part of the gv-clade-index registry
+# See: https://github.com/hyperpolymath/gv-clade-index
+
+[identity]
+uuid = "ff29afc3-b7f3-5b88-ba26-5af1d946863b"
+primary-forge = "github"
+primary-owner = "hyperpolymath"
+canonical-name = "chimichanga"
+prefixed-name = "gm-chimichanga"
+
+[clade]
+primary = "gm"
+secondary = []
+assigned = "2026-03-16"
+rationale = ""
+
+[forges]
+github = "hyperpolymath/chimichanga"
+gitlab = "hyperpolymath/chimichanga"
+bitbucket = "hyperpolymath/chimichanga"
+
+[lineage]
+type = "standalone"
+parent = "Game project"
+born = "2026-03-16"
