@@ -12,7 +12,7 @@ jobs:
       MIX_ENV: test
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-      - uses: erlef/setup-beam@v1
+      - uses: erlef/setup-beam@ee09b1e59bb240681c382eb1f0abc6a04af72764 # v1
         with:
           otp-version: '26'
           elixir-version: '1.15'
