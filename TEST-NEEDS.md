@@ -12,7 +12,8 @@
 
 ## What's Covered
 
-COVERAGE_ITEMS
+- [x] Elixir unit tests (mix test)
+- [x] Integration tests
 
 ## Still Missing (for CRG B+)
 
