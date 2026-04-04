@@ -1,0 +1,40 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+#
+# k9iser manifest for chimichanga
+# Capability attenuation framework for sandboxed WASM execution (OTP application)
+
+[project]
+name = "chimichanga"
+safety_tier = "yard"
+
+[[source]]
+path = "mix.exs"
+type = "mix"
+output = "generated/k9iser/mix-manifest.k9"
+
+[[source]]
+path = "Justfile"
+type = "justfile"
+output = "generated/k9iser/justfile-recipes.k9"
+
+[[source]]
+path = ".github/workflows/hypatia-scan.yml"
+type = "workflow"
+output = "generated/k9iser/ci-security.k9"
+
+[[constraint]]
+rule = "build.dependencies has no banned_packages"
+severity = "error"
+
+[[constraint]]
+rule = "workflows includes hypatia-scan"
+severity = "error"
+
+[[constraint]]
+rule = "wasm.sandboxing enforces capability attenuation before execution"
+severity = "error"
+
+[[constraint]]
+rule = "otp.application module is present and supervised"
+severity = "error"
