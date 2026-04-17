@@ -54,7 +54,7 @@ defmodule Munition.MixProject do
       {:dialyxir, "1.4.3", only: [:dev, :test], runtime: false},
 
       # Benchmarking - pinned version
-      {:benchee, "1.3.0", only: [:dev, :test]}
+      {:benchee, "1.5.0", only: [:dev, :test]}
     ]
   end
 
