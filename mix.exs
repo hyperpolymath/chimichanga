@@ -43,7 +43,7 @@ defmodule Munition.MixProject do
   defp deps do
     [
       # WASM runtime - pinned version
-      {:wasmex, "0.9.2"},
+      {:wasmex, "0.14.0"},
 
       # JSON encoding for benchmarks and dumps - pinned version
       {:jason, "1.4.4"},
