@@ -71,8 +71,15 @@ defmodule Munition do
   capabilities (e.g. `wasi_snapshot_preview1` when network access is forbidden).
   """
   @spec validate(binary(), keyword()) :: :ok | {:error, term()}
-  def validate(_wasm_bytes, _opts \\ []) do
-    # ... logic to compile and inspect exports/imports
-    :ok
+  def validate(wasm_bytes, _opts \\ []) do
+    # WASM magic: \0asm followed by version (4 bytes). Full import/export
+    # validation requires Wasmex 0.14 API — pending implementation.
+    if binary_part(wasm_bytes, 0, 4) == <<0, 97, 115, 109>> do
+      :ok
+    else
+      {:error, :invalid_magic_bytes}
+    end
+  rescue
+    ArgumentError -> {:error, :invalid_magic_bytes}
   end
 end

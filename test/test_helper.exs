@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: 2025 Hyperpolymath
 
+wasm_available = File.exists?("test/fixtures/test.wasm")
+unless wasm_available, do: ExUnit.configure(exclude: [:skip_without_wasm])
 ExUnit.start()
 
 # Test support modules
