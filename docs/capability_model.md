@@ -75,17 +75,35 @@ linear memory state before any cleanup, allowing post-mortem analysis.
 
 ### Capability Classes
 
-| Capability | Description | Default | Risk |
-|------------|-------------|---------|------|
-| `compute` | Execute instructions | Granted | N/A |
-| `memory_read` | Read linear memory | Granted | Low |
-| `memory_write` | Write linear memory | Granted | Low |
-| `host_call` | Call host functions | Per-function | Medium |
-| `filesystem_read` | Read files | Denied | Medium |
-| `filesystem_write` | Write files | Denied | High |
-| `network` | Network access | Denied | High |
-| `time` | Access system time | Configurable | Low |
-| `random` | Access entropy | Configurable | Low |
+| Capability | Description | Default | Risk | Validated |
+|------------|-------------|---------|------|-----------|
+| `compute` | Execute instructions | Granted | N/A | implicit |
+| `memory_read` | Read linear memory | Granted | Low | implicit |
+| `memory_write` | Write linear memory | Granted | Low | implicit |
+| `host_call` | Call host functions | Per-function | Medium | as `{:host_function, name}` |
+| `log` | Write to log output | Configurable | Low | atom |
+| `time` | Access system time | Configurable | Low | atom |
+| `random` | Access entropy | Configurable | Low | atom |
+| `filesystem_read` | Read files | Denied | Medium | atom |
+| `filesystem_write` | Write files | Denied | High | atom |
+| `network` | Network access | Denied | High | atom |
+
+The *Validated* column tells you what kind of value `Munition.Host.Capabilities.valid?/1`
+recognises for each capability:
+
+- **`implicit`** — always-granted baseline; the runtime cannot turn these
+  off, so they don't appear in the explicit grant list and `valid?(:compute)`
+  is intentionally `false`.
+- **`{:host_function, name}`** — host calls are validated as a tagged tuple
+  rather than a flat atom because they are parameterised by the host
+  function being invoked.
+- **`atom`** — listed in `@standard_capabilities` and recognised
+  by `valid?/1`. These are the atoms a caller actually passes via
+  `opts[:capabilities]` on `Munition.fire/4`.
+
+The atoms in the *Validated = atom* rows above are exactly the
+elements of `@standard_capabilities` in
+`lib/munition/host/capabilities.ex` — keep the two in sync.
 
 ### Attenuation Strategies
 
