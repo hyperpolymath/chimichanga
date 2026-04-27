@@ -23,6 +23,9 @@ defmodule Munition do
   alias Munition.Fuel.Policy
   alias Munition.Instance.Manager
 
+  @typedoc "A granted access permission. Standard atoms or `{:host_function, name}` for custom bridges."
+  @type capability() :: :time | :random | :log | :filesystem_read | :filesystem_write | :network | {:host_function, String.t()} | atom()
+
   @typedoc "Result of a WASM function execution."
   @type fire_result() ::
           {:ok, term()}
@@ -31,6 +34,10 @@ defmodule Munition do
           | {:error, :capability_denied, atom()}
           | {:error, :trap, Dump.t()}
           | {:error, term()}
+
+  # Stub runtime always returns {:error, :not_implemented}; contract mismatch is expected
+  # until Wasmex 0.14 implementation replaces the stubs.
+  @dialyzer {:nowarn_function, fire: 4}
 
   @doc """
   EXECUTION: Fires a single function call within a fresh WASM instance.

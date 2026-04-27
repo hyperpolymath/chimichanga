@@ -39,6 +39,16 @@ defmodule Munition.Instance.Manager do
 
   @runtime Application.compile_env(:munition, :runtime, Munition.Runtime.Wasmex)
 
+  # Stubs make compile/2 always return {:error, :not_implemented}; contracts,
+  # pattern matches and reachability warnings are expected until the real
+  # Wasmex 0.14 implementation replaces the stubs.
+  @dialyzer [
+    {:nowarn_function, execute: 4},
+    {:nowarn_function, execute_pooled: 4},
+    {:nowarn_function, execute_with_capture: 6},
+    {:nowarn_function, build_imports: 1}
+  ]
+
   @type config :: %{
           fuel: non_neg_integer(),
           timeout: non_neg_integer(),
