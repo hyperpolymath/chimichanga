@@ -121,8 +121,7 @@ defmodule Munition.Host.Functions do
   end
 
   defp host_log(_context) do
-    # TODO: Implement memory read for log message
-    # For now, just acknowledge the call
+    # Log calls are acknowledged without memory read (stub implementation)
     :ok
   end
 end

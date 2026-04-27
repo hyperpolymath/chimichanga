@@ -4,6 +4,9 @@
 defmodule Munition.Integration.CrashCaptureTest do
   use ExUnit.Case, async: true
 
+  alias Munition.Forensics.Analyser
+  alias Munition.Forensics.Dump
+
   @moduletag :integration
 
   setup do
@@ -52,10 +55,10 @@ defmodule Munition.Integration.CrashCaptureTest do
       {:crash, _, forensics} =
         Munition.fire(wasm, "trap_unreachable", [], fuel: 10_000)
 
-      serialized = Munition.Forensics.Dump.serialize(forensics)
+      serialized = Dump.serialize(forensics)
       assert is_binary(serialized)
 
-      {:ok, deserialized} = Munition.Forensics.Dump.deserialize(serialized)
+      {:ok, deserialized} = Dump.deserialize(serialized)
 
       assert deserialized.id == forensics.id
       assert deserialized.memory == forensics.memory
@@ -68,7 +71,7 @@ defmodule Munition.Integration.CrashCaptureTest do
       {:crash, _, forensics} =
         Munition.fire(wasm, "trap_unreachable", [], fuel: 10_000)
 
-      summary = Munition.Forensics.Dump.summary(forensics)
+      summary = Dump.summary(forensics)
 
       assert is_binary(summary)
       assert String.contains?(summary, "trap_unreachable")
@@ -84,10 +87,10 @@ defmodule Munition.Integration.CrashCaptureTest do
       {:crash, _, forensics} =
         Munition.fire(wasm, "crash_after_n", [10], fuel: 100_000)
 
-      analyser = Munition.Forensics.Analyser.new(forensics)
+      analyser = Analyser.new(forensics)
 
       # Get memory stats
-      stats = Munition.Forensics.Analyser.stats(analyser)
+      stats = Analyser.stats(analyser)
       assert stats.size_bytes > 0
     end
 
@@ -98,10 +101,10 @@ defmodule Munition.Integration.CrashCaptureTest do
       {:crash, _, forensics} =
         Munition.fire(wasm, "crash_after_n", [10], fuel: 100_000)
 
-      analyser = Munition.Forensics.Analyser.new(forensics)
+      analyser = Analyser.new(forensics)
 
       # Search for a pattern (may or may not find it)
-      offsets = Munition.Forensics.Analyser.find_pattern(analyser, <<0, 0, 0, 0>>)
+      offsets = Analyser.find_pattern(analyser, <<0, 0, 0, 0>>)
       assert is_list(offsets)
     end
   end

@@ -178,14 +178,16 @@ defmodule Munition.Forensics.Analyser do
     |> :binary.bin_to_list()
     |> Enum.chunk_every(16)
     |> Enum.with_index()
-    |> Enum.map(fn {chunk, line} ->
+    |> Enum.map_join("\n", fn {chunk, line} ->
       offset = start_offset + line * 16
-      hex = chunk |> Enum.map(&String.pad_leading(Integer.to_string(&1, 16), 2, "0")) |> Enum.join(" ")
-      ascii = chunk |> Enum.map(fn b -> if b >= 32 and b < 127, do: <<b>>, else: "." end) |> Enum.join()
+      hex = Enum.map_join(chunk, " ", &String.pad_leading(Integer.to_string(&1, 16), 2, "0"))
+      ascii = Enum.map_join(chunk, "", &byte_to_ascii/1)
       String.pad_leading(Integer.to_string(offset, 16), 8, "0") <> "  " <> String.pad_trailing(hex, 48) <> "  " <> ascii
     end)
-    |> Enum.join("\n")
   end
+
+  defp byte_to_ascii(b) when b >= 32 and b < 127, do: <<b>>
+  defp byte_to_ascii(_), do: "."
 
   @doc """
   Get memory statistics.
@@ -198,7 +200,7 @@ defmodule Munition.Forensics.Analyser do
 
     %{
       size_bytes: size,
-      size_pages: div(size, 65536),
+      size_pages: div(size, 65_536),
       zero_bytes: zero_count,
       non_zero_bytes: non_zero_count,
       utilization: if(size > 0, do: non_zero_count / size, else: 0.0)

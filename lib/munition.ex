@@ -19,9 +19,9 @@ defmodule Munition do
      and must be explicitly granted per-call.
   """
 
-  alias Munition.Instance.Manager
-  alias Munition.Fuel.Policy
   alias Munition.Forensics.Dump
+  alias Munition.Fuel.Policy
+  alias Munition.Instance.Manager
 
   @typedoc "Result of a WASM function execution."
   @type fire_result() ::
