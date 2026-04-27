@@ -30,20 +30,9 @@ defmodule Munition.Runtime.Wasmex do
   end
 
   @impl true
-  def call({instance, _store}, function, args) do
-    try do
-      case Wasmex.Instance.call_exported_function(instance, to_string(function), args) do
-        {:ok, result} -> {:ok, result}
-        {:error, msg} ->
-          cond do
-            String.contains?(msg, "fuel") -> {:error, :fuel_exhausted}
-            String.contains?(msg, "out of bounds") -> {:error, :trap, :out_of_bounds}
-            true -> {:error, msg}
-          end
-      end
-    rescue
-      e -> {:error, {:exception, Exception.message(e)}}
-    end
+  def call(_instance_store, _function, _args) do
+    # Function execution — stub pending Wasmex 0.14 API (call_exported_function/5)
+    {:error, :not_implemented}
   end
 
   @impl true

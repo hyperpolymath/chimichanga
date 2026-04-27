@@ -34,8 +34,7 @@ defmodule Munition.Instance.Manager do
 
   """
 
-  alias Munition.Runtime
-  alias Munition.Forensics.{Capture, Dump}
+  alias Munition.Forensics.Capture
   alias Munition.Host.Functions
 
   @runtime Application.compile_env(:munition, :runtime, Munition.Runtime.Wasmex)
