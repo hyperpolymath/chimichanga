@@ -23,6 +23,15 @@ defmodule Munition do
   alias Munition.Fuel.Policy
   alias Munition.Forensics.Dump
 
+  @typedoc "Result of a WASM function execution."
+  @type fire_result() ::
+          {:ok, term()}
+          | {:error, :fuel_exhausted}
+          | {:error, :timeout}
+          | {:error, :capability_denied, atom()}
+          | {:error, :trap, Dump.t()}
+          | {:error, term()}
+
   @doc """
   EXECUTION: Fires a single function call within a fresh WASM instance.
 
