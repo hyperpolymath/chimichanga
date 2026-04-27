@@ -60,7 +60,7 @@ defmodule Munition do
   capabilities (e.g. `wasi_snapshot_preview1` when network access is forbidden).
   """
   @spec validate(binary(), keyword()) :: :ok | {:error, term()}
-  def validate(wasm_bytes, opts \\ []) do
+  def validate(_wasm_bytes, _opts \\ []) do
     # ... logic to compile and inspect exports/imports
     :ok
   end
