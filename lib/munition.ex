@@ -24,7 +24,11 @@ defmodule Munition do
   alias Munition.Instance.Manager
 
   @typedoc "A granted access permission. Standard atoms or `{:host_function, name}` for custom bridges."
-  @type capability() :: :time | :random | :log | :filesystem_read | :filesystem_write | :network | {:host_function, String.t()} | atom()
+  @type capability() ::
+          :time | :random | :log
+          | :filesystem_read | :filesystem_write | :network
+          | {:host_function, String.t()}
+          | atom()
 
   @typedoc "Result of a WASM function execution."
   @type fire_result() ::
