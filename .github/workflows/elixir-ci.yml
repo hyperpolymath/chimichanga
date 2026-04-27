@@ -37,11 +37,10 @@ jobs:
       
       - name: Run tests
         run: |
-          mix test --cover
-          EXIT=$?
+          mix test --cover || EXIT=$?
           # Exit 3 = coverage threshold not met; acceptable while integration
           # tests are excluded (no WASM binary in CI). Tests still fail on 1/2.
-          [ $EXIT -eq 0 ] || [ $EXIT -eq 3 ] || exit $EXIT
+          [ "${EXIT:-0}" -eq 3 ] || exit "${EXIT:-0}"
       
       - name: Security check
         run: mix deps.audit || true
