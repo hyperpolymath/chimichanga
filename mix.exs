@@ -51,7 +51,7 @@ defmodule Munition.MixProject do
       {:wasmex, "0.14.0"},
 
       # JSON encoding for benchmarks and dumps - pinned version
-      {:jason, "1.4.4"},
+      {:jason, "1.4.5"},
 
       # Development and testing - pinned versions
       {:ex_doc, "0.40.1", only: :dev, runtime: false},
