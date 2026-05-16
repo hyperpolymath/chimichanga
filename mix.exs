@@ -54,7 +54,7 @@ defmodule Munition.MixProject do
       {:jason, "1.4.5"},
 
       # Development and testing - pinned versions
-      {:ex_doc, "0.40.1", only: :dev, runtime: false},
+      {:ex_doc, "0.40.2", only: :dev, runtime: false},
       {:credo, "1.7.18", only: [:dev, :test], runtime: false},
       {:dialyxir, "1.4.7", only: [:dev, :test], runtime: false},
 
