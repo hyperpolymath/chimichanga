@@ -118,7 +118,7 @@ defmodule Munition.MixProject do
   defp package do
     [
       name: "munition",
-      licenses: ["MIT"],
+      licenses: ["MPL-2.0"],
       links: %{
         "GitHub" => @source_url,
         "Changelog" => "#{@source_url}/blob/main/CHANGELOG.md"
