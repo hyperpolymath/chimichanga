@@ -17,7 +17,7 @@
 - 10 unsafe blocks in test_wasm/src/lib.rs
 - Raw pointer cast in test_wasm/src/lib.rs
 - 14 TODO/FIXME/HACK markers in contractiles/k9/template-hunt.k9.ncl
-- flake.nix declares inputs without narHash, rev pinning, or sibling flake.lock — dependency revision is unpinned in flake.nix
+- flake.guix declares inputs without narHash, rev pinning, or sibling flake.lock — dependency revision is unpinned in flake.guix
 
 ## Final Grade
 - **CRG Grade:** D (Promoted from E/X) - CI and lockfiles are in place.

@@ -78,7 +78,7 @@ This ensures builds are reproducible and reversible.
 All configuration is in version-controlled files:
 
 - `config/*.exs` - Elixir configuration
-- `flake.nix` - Nix environment
+- `flake.guix` - Guix environment
 - `Justfile` - Task automation
 
 No hidden state or manual configuration steps.
