@@ -1,47 +1,40 @@
-// SPDX-License-Identifier: CC-BY-SA-4.0
-= Maintainers
-:toc: preamble
+== Maintainers
 
-This document lists the maintainers of this project and their responsibilities.
+This file lists the maintainers of the Munition project.
 
-== Current Maintainers
+=== Active Maintainers
 
-[cols="2,3,2",options="header"]
+[cols=",,,",options="header",]
 |===
-| Name | Role | Contact
-
-| Jonathan D.A. Jewell
-| Lead Maintainer
-| https://github.com/hyperpolymath[@hyperpolymath]
+|Name |GitLab/GitHub |Role |Since
+|Hyperpolymath |@hyperpolymath |Lead Maintainer |2025-01
 |===
 
-== Responsibilities
+=== Emeritus Maintainers
+
+_No emeritus maintainers yet._
+
+=== Becoming a Maintainer
+
+See GOVERNANCE.adoc for the process of becoming a maintainer.
+
+=== Responsibilities
 
 Maintainers are responsible for:
 
-* Reviewing and merging pull requests
-* Triaging issues and feature requests
-* Ensuring code quality and security standards
-* Managing releases and versioning
-* Upholding the project's code of conduct
+[arabic]
+. *Code Review*: Reviewing and merging pull requests
+. *Issue Triage*: Categorizing and responding to issues
+. *Security*: Responding to security reports (see SECURITY.md)
+. *Releases*: Managing version releases
+. *Community*: Fostering a healthy contributor community
 
-== Becoming a Maintainer
+=== Contact
 
-Contributors who demonstrate:
+* *General*: maintainers@hyperpolymath.dev
+* *Security*: security@hyperpolymath.dev
 
-* Consistent, high-quality contributions
-* Understanding of the project's goals and standards
-* Constructive participation in discussions
-* Commitment to the project's long-term health
+=== Attribution
 
-May be invited to become maintainers at the discretion of existing maintainers.
-
-== Decision Making
-
-* Routine decisions (bug fixes, minor improvements) can be made by any maintainer
-* Significant changes require discussion and consensus among maintainers
-* Breaking changes or major features should be discussed in issues before implementation
-
-== Contact
-
-For questions about project governance, open an issue or contact the maintainers listed above.
+All maintainers are listed in the SPDX headers of files they have
+authored or significantly modified.
