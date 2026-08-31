@@ -1,0 +1,32 @@
+== TEST-NEEDS.md — chimichanga
+
+=== CRG Grade: C — ACHIEVED 2026-04-04
+
+=== Current Test State
+
+[cols=",,",options="header",]
+|===
+|Category |Count |Notes
+|Test directories |2 |Location(s): /test, /tests
+|CI workflows |21 |Running tests on GitHub Actions
+|ExUnit tests |Built-in |Elixir testing framework
+|===
+
+=== What’s Covered
+
+* [x] Elixir unit tests (mix test)
+* [x] Integration tests
+
+=== Still Missing (for CRG B+)
+
+* [ ] Code coverage reports (codecov integration)
+* [ ] Detailed test documentation in CONTRIBUTING.md
+* [ ] Integration tests beyond unit tests
+* [ ] Performance benchmarking suite
+
+=== Run Tests
+
+[source,bash]
+----
+mix test
+----
