@@ -56,7 +56,7 @@ defmodule Munition.MixProject do
       # Development and testing - pinned versions
       {:ex_doc, "0.40.4", only: :dev, runtime: false},
       {:credo, "1.7.19", only: [:dev, :test], runtime: false},
-      {:dialyxir, "1.4.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "1.4.8", only: [:dev, :test], runtime: false},
 
       # Benchmarking - pinned version
       {:benchee, "1.5.1", only: [:dev, :test]}
