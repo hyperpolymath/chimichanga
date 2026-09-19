@@ -252,7 +252,7 @@ Infrastructure for distributing and verifying WASM plugins:
 
 == Contributing
 
-See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc] for the Tri-Perimeter Contribution Framework.
+See link:.github/CONTRIBUTING.md[.github/CONTRIBUTING.md] for the Tri-Perimeter Contribution Framework.
 
 Roadmap items are tracked in GitHub Issues. Contributions welcome at all perimeter levels.
 

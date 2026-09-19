@@ -339,7 +339,7 @@ just validate          # Full RSR Gold validation
 
 * link:ARCHITECTURE.md[Architecture] - System design and execution flows
 * link:docs/capability_model.md[Capability Model] - Formal specification and proofs
-* link:CONTRIBUTING.adoc[Contributing] - Tri-Perimeter Contribution Framework
+* link:.github/CONTRIBUTING.md[Contributing] - Tri-Perimeter Contribution Framework
 * link:GOVERNANCE.adoc[Governance] - Decision-making model
 * link:SECURITY.md[Security] - Vulnerability reporting policy
 * link:REVERSIBILITY.md[Reversibility] - Safe operations commitment
