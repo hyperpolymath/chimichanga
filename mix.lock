@@ -25,5 +25,5 @@
   "statistex": {:hex, :statistex, "1.1.1", "73612aa7f79e53c30569be065fd121e380f1cf57bc4c2da5b41be9246da18df9", [:mix], [], "hexpm", "310c4b49b34adf683de3103639006bed233ab54c08a4add65a531448e653857c"},
   "telemetry": {:hex, :telemetry, "1.4.1", "ab6de178e2b29b58e8256b92b382ea3f590a47152ca3651ea857a6cae05ac423", [:rebar3], [], "hexpm", "2172e05a27531d3d31dd9782841065c50dd5c3c7699d95266b2edd54c2dafa1c"},
   "toml": {:hex, :toml, "0.7.0", "fbcd773caa937d0c7a02c301a1feea25612720ac3fa1ccb8bfd9d30d822911de", [:mix], [], "hexpm", "0690246a2478c1defd100b0c9b89b4ea280a22be9a7b313a8a058a2408a2fa70"},
-  "wasmex": {:hex, :wasmex, "0.16.1", "d7ec9acbfa8056160d9bf012e807c878772bef4af7e6f7955951884d47ab4567", [:mix], [{:rustler, "~> 0.38", [hex: :rustler, repo: "hexpm", optional: false]}, {:rustler_precompiled, "~> 0.10.1", [hex: :rustler_precompiled, repo: "hexpm", optional: false]}], "hexpm", "c046e47ef5b12f8f467169ff6e40d9ff12c1416638c05cc26c4477af2084fcf9"},
+  "wasmex": {:hex, :wasmex, "0.18.1", "97fbb028a1cbc36f039a8e58aa45cba9a067694645d8f4ffdbf93c8c1f1933ac", [:mix], [{:rustler, "~> 0.38", [hex: :rustler, repo: "hexpm", optional: false]}, {:rustler_precompiled, "~> 0.10.1", [hex: :rustler_precompiled, repo: "hexpm", optional: false]}], "hexpm", "ca36b6650c797a4ac86362494a884eb8d4e89279147938bf21a0082cdef39e20"},
 }
